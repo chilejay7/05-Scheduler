@@ -2,8 +2,7 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
-const day = dayjs();
-const currentDate = day.$d
+const currentDate = dayjs().format(`dddd D, YYYY`)
 
 $(document).ready(function(){
 
@@ -13,7 +12,7 @@ $(document).ready(function(){
   $('.saveBtn').on('click', function(e) {
 
     console.log('clicked', e);
-    let calendarInput = $('#hour-12 textarea').val().trim()
+    let calendarInput = $('#hour-12 textarea').val().trim();
     console.log(calendarInput);
   })
   
