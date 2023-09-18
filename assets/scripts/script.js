@@ -2,12 +2,16 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
-const day = $('#currentDay');
-
-// $(day).text(today.format('MMM D, YYYY'));
+const day = dayjs();
+const currentDate = day.$d
 
 $(document).ready(function(){
+
+  // The jQuery text method is needed to set the innerText property of the element.
+  $('#currentDay').text(currentDate);
+
   $('.saveBtn').on('click', function(e) {
+
     console.log('clicked', e);
     let calendarInput = $('#hour-12 textarea').val().trim()
     console.log(calendarInput);
