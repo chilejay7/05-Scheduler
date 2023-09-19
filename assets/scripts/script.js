@@ -54,9 +54,11 @@ setColors = () => {
   const timeBlocks = $('.hour')
 
   for (let i = 0; i < timeBlocks.length; i++) {
-    console.log(timeBlocks[i].innerHTML);
-    //   if (day.js().$H > timeBlock[i]) {
-    //     console.log(i.innerHTML);
+    let timeText =timeBlocks[i].innerHTML;
+    let timeInt = parseInt(timeText)
+    console.log(timeInt)
+    //   // if (timeBlock[i]) {
+    //   //   console.log(i.innerHTML);
     // }
   }
 }
