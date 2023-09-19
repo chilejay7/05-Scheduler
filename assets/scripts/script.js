@@ -2,20 +2,27 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
+
 const currentDate = dayjs().format(`dddd D, YYYY`)
+
 
 $(document).ready(function(){
 
   // The jQuery text method is needed to set the innerText property of the element.
   $('#currentDay').text(currentDate);
-
   $('.saveBtn').on('click', function(e) {
-
     console.log('clicked', e);
     let calendarInput = $('#hour-12 textarea').val().trim();
     console.log(calendarInput);
   })
   
+  // This dipslays the current time updated every second.  The seconds can be removed and the interval changed to a longer duration if seconds are not displayed.
+  currentTime = () => {
+    let time = dayjs().format(`h:mm:ss`)
+    $('#currentTime').text(time)
+  }
+  setInterval(currentTime, 1000)
+
 })
 
 $(function () {
@@ -37,5 +44,19 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
+
+  
+  
+  
 });
 
+setColors = () => {
+  const timeBlocks = $('.hour')
+
+  for (let i = 0; i < timeBlocks.length; i++) {
+    console.log(timeBlocks[i].innerHTML);
+    //   if (day.js().$H > timeBlock[i]) {
+    //     console.log(i.innerHTML);
+    // }
+  }
+}
