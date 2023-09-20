@@ -91,7 +91,8 @@ setColors = () => {
     } else if (timeInt === hourNow) {
       timeBlocks[i].nextSibling.nextElementSibling.className += ' present'
     } else {
-      if (timeBlocks[i].className.includes('afternoon')) {
+      // An additional statement was required her to catch afternoon hours that were evaluating as false on the first conditional statement and set them to future.
+      if (timeBlocks[i].className.includes('afternoon' && hourNow < 18)) {
         timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
       } else {
       timeBlocks[i].nextSibling.nextElementSibling.className += ' past'
