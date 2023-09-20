@@ -53,7 +53,7 @@ setHour = () => {
   let currentTime = parseInt(dayjs().format(`HH`));
   let amPm = dayjs().format(`a`)
   
-  // This will evaluate false for all times after the 5pm time block and force the correct color.  The first else will return a value of the 12 or below during morning hours.
+  // This will evaluate false for all times after the 5pm time block and force the correct color.  The first else will return a value of 12 or below during morning hours.
   if(amPm !== 'am' && currentTime >= 18) {
     return currentTime;
   } else if (amPm === 'am') {
@@ -77,20 +77,27 @@ setColors = () => {
     console.log(timeInt)
     
     if (timeInt > hourNow && amPm === 'am') {
-      timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
+
+        timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
+      
     } else if (timeInt > hourNow && amPm === 'pm') {
+
+      // This addtional statement was required to fix a bug where the morning hours would always evaluate to future because the numerical values compared with the curernt time were greater.
         if (timeBlocks[i].className.includes('morning')) {
           timeBlocks[i].nextSibling.nextElementSibling.className += ' past'
         } else {
           timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
         }
-    }
-      else if (timeInt === hourNow) {
+    } else if (timeInt === hourNow) {
       timeBlocks[i].nextSibling.nextElementSibling.className += ' present'
     } else {
+      if (timeBlocks[i].className.includes('afternoon')) {
+        timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
+      } else {
       timeBlocks[i].nextSibling.nextElementSibling.className += ' past'
     }
   }
+}
 }
 
 // const morning = $('.morning')
