@@ -52,13 +52,20 @@ $(function () {
 
 setColors = () => {
   const timeBlocks = $('.hour')
+  let hourNow = dayjs().$H-12
 
   for (let i = 0; i < timeBlocks.length; i++) {
-    let timeText =timeBlocks[i].innerHTML;
+    console.dir(timeBlocks[i]);
+    let timeText = timeBlocks[i].innerHTML;
     let timeInt = parseInt(timeText)
     console.log(timeInt)
-    //   // if (timeBlock[i]) {
-    //   //   console.log(i.innerHTML);
-    // }
+    
+    if (timeInt > hourNow) {
+      timeBlocks[i].nextSibling.nextElementSibling.className += ' past'
+    } else if (timeInt == hourNow) {
+      timeBlocks[i].nextSibling.nextElementSibling.className += ' present'
+    } else {
+      timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
+    }
   }
 }
