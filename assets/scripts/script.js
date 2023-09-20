@@ -44,28 +44,40 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-
-  
-  
-  
 });
+
+setHour = () => {
+  let currentTime = parseInt(dayjs().format(`H`));
+  let amPm = dayjs().format(`a`)
+
+  // This will evaluate false for all times after the 5pm time block and force the correct color.  The first else will return a value of the 12 or below during morning hours.
+  if(amPm !== 'am' && currentTime >= 18) {
+    return currentTime;
+  } else if (amPm === 'am') {
+   return currentTime;
+  } else {
+    return currentTime -= 12;
+  }
+}
 
 setColors = () => {
   const timeBlocks = $('.hour')
-  let hourNow = dayjs().$H-12
-
+  
+  let hourNow = setHour();
+  
   for (let i = 0; i < timeBlocks.length; i++) {
     console.dir(timeBlocks[i]);
-    let timeText = timeBlocks[i].innerHTML;
-    let timeInt = parseInt(timeText)
+    let timeInt = parseInt(timeBlocks[i].innerHTML);
     console.log(timeInt)
     
-    if (timeInt > hourNow) {
+    if ((timeInt) < hourNow) {
       timeBlocks[i].nextSibling.nextElementSibling.className += ' past'
-    } else if (timeInt == hourNow) {
+    } else if ((timeInt) === hourNow) {
       timeBlocks[i].nextSibling.nextElementSibling.className += ' present'
     } else {
       timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
     }
   }
 }
+
+
