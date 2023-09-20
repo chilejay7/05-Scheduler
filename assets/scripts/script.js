@@ -56,7 +56,9 @@ setHour = () => {
   // This will evaluate false for all times after the 5pm time block and force the correct color.  The first else will return a value of 12 or below during morning hours.
   if(amPm !== 'am' && currentTime >= 18) {
     return currentTime;
-  } else if (amPm === 'am') {
+  
+  // While debugging issues with the 12:00 hour I found an or statement was needed here since 12PM would use the last conditional to return a value -= 12 resulting in 0.
+  } else if (amPm === 'am' || currentTime == 12) {
    return currentTime;
   } else {
     return currentTime -= 12;
@@ -91,8 +93,8 @@ setColors = () => {
     } else if (timeInt === hourNow) {
       timeBlocks[i].nextSibling.nextElementSibling.className += ' present'
     } else {
-      // An additional statement was required her to catch afternoon hours that were evaluating as false on the first conditional statement and set them to future.
-      if (timeBlocks[i].className.includes('afternoon' && hourNow < 18)) {
+      // An additional statement was required here to catch afternoon hours that were evaluating as false on the first conditional statement and set them to future during morning hours.
+      if (timeBlocks[i].className.includes('afternoon') && hourNow < 18 && amPm !== 'pm') {
         timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
       } else {
       timeBlocks[i].nextSibling.nextElementSibling.className += ' past'
@@ -100,6 +102,7 @@ setColors = () => {
   }
 }
 }
+
 
 // const morning = $('.morning')
 // const afternoon = $('.afternoon')
