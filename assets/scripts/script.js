@@ -3,8 +3,7 @@
 // in the html.
 
 
-const currentDate = dayjs().format(`dddd D, YYYY`)
-
+const currentDate = dayjs().format(`dddd D, YYYY`);
 
 $(document).ready(function(){
 
@@ -18,10 +17,12 @@ $(document).ready(function(){
   
   // This dipslays the current time updated every second.  The seconds can be removed and the interval changed to a longer duration if seconds are not displayed.
   currentTime = () => {
-    let time = dayjs().format(`h:mm:ss`)
+    let time = dayjs().format(`h:mm:ss a`)
     $('#currentTime').text(time)
   }
   setInterval(currentTime, 1000)
+
+  setColors();
 
 })
 
@@ -46,10 +47,12 @@ $(function () {
   // TODO: Add code to display the current date in the header of the page.
 });
 
-setHour = () => {
-  let currentTime = parseInt(dayjs().format(`H`));
-  let amPm = dayjs().format(`a`)
 
+// This function is called within the setColors function and the return value is saved to the hourNow variable.
+setHour = () => {
+  let currentTime = parseInt(dayjs().format(`HH`));
+  let amPm = dayjs().format(`a`)
+  
   // This will evaluate false for all times after the 5pm time block and force the correct color.  The first else will return a value of the 12 or below during morning hours.
   if(amPm !== 'am' && currentTime >= 18) {
     return currentTime;
@@ -58,11 +61,14 @@ setHour = () => {
   } else {
     return currentTime -= 12;
   }
+
 }
 
+// This function is called within the document.ready function.
 setColors = () => {
   const timeBlocks = $('.hour')
-  
+  const amPm = dayjs().format(`a`)
+
   let hourNow = setHour();
   
   for (let i = 0; i < timeBlocks.length; i++) {
@@ -70,14 +76,39 @@ setColors = () => {
     let timeInt = parseInt(timeBlocks[i].innerHTML);
     console.log(timeInt)
     
-    if ((timeInt) < hourNow) {
-      timeBlocks[i].nextSibling.nextElementSibling.className += ' past'
-    } else if ((timeInt) === hourNow) {
+    if (timeInt > hourNow && amPm === 'am') {
+      timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
+    } else if (timeInt > hourNow && amPm === 'pm') {
+        if (timeBlocks[i].className.includes('morning')) {
+          timeBlocks[i].nextSibling.nextElementSibling.className += ' past'
+        } else {
+          timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
+        }
+    }
+      else if (timeInt === hourNow) {
       timeBlocks[i].nextSibling.nextElementSibling.className += ' present'
     } else {
-      timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
+      timeBlocks[i].nextSibling.nextElementSibling.className += ' past'
     }
   }
 }
 
+// const morning = $('.morning')
+// const afternoon = $('.afternoon')
+
+// setMorning = () => {
+//   for (let i = 0; i < morning.length; i++) {
+//   morning[i].nextSibling.nextElementSibling.className += ' past'
+// }
+// }
+
+// setAfternoon = () => {
+//   for (let i = 0; i < morning.length; i++) {
+//     if (timeInt > hourNow) {
+//   afternoon[i].nextSibling.nextElementSibling.className += ' future'
+//   } else if (timeInt === hourNow) {
+//     afternoon[i].nextSibling.nextElementSibling.className += ' present'
+//   }
+// }
+// }
 
