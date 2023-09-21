@@ -105,8 +105,14 @@ setColors = () => {
       timeBlocks[i].nextSibling.nextElementSibling.className += ' present'
     }
     else {
+      
+      // This staement was needed during the noon hour to fix a bug preventing afternoon hours from being evaluated as future due to the !=='pm'
+      if (timeBlocks[i].className.includes('afternoon') && hourNow < 18 && hourNow === 12) {
+        timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
+      } 
+      
       // An additional statement was required here to catch afternoon hours that were evaluating as false on the first conditional statement and set them to future during morning hours.
-      if (timeBlocks[i].className.includes('afternoon') && hourNow < 18 && amPm !== 'pm') {
+      else if (timeBlocks[i].className.includes('afternoon') && hourNow < 18 && amPm !== 'pm') {
         timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
       } else {
       timeBlocks[i].nextSibling.nextElementSibling.className += ' past'
