@@ -97,9 +97,14 @@ setColors = () => {
         } else {
           timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
         }
-    } else if (timeInt === hourNow) {
+    //  Addtional statements were needed to corretly evaluate the present time during morning hours.  The application was incorrectly reading afternoon hours as present early in the morning.
+    } else if (timeInt === hourNow && amPm !== 'pm' && timeInt >= 9) {
       timeBlocks[i].nextSibling.nextElementSibling.className += ' present'
-    } else {
+
+    } else if (timeInt === hourNow && amPm !== 'am') {
+      timeBlocks[i].nextSibling.nextElementSibling.className += ' present'
+    }
+    else {
       // An additional statement was required here to catch afternoon hours that were evaluating as false on the first conditional statement and set them to future during morning hours.
       if (timeBlocks[i].className.includes('afternoon') && hourNow < 18 && amPm !== 'pm') {
         timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
