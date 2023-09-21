@@ -5,15 +5,12 @@
 
 const currentDate = dayjs().format(`dddd D, YYYY`);
 
+const buttons = $('.saveBtn')
+
 $(document).ready(function(){
 
   // The jQuery text method is needed to set the innerText property of the element.
   $('#currentDay').text(currentDate);
-  $('.saveBtn').on('click', function(e) {
-    console.log('clicked', e);
-    let calendarInput = $('#hour-12 textarea').val().trim();
-    console.log(calendarInput);
-  })
   
   // This dipslays the current time updated every second.  The seconds can be removed and the interval changed to a longer duration if seconds are not displayed.
   currentTime = () => {
@@ -23,7 +20,6 @@ $(document).ready(function(){
   setInterval(currentTime, 1000)
 
   setColors();
-
 })
 
 $(function () {
@@ -46,6 +42,17 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 });
+
+buttons.on('click', function(e) {
+  // console.log('clicked', e.target);
+  // console.log(e.target.parentElement.children[1].innerText);
+  console.log(e.target.parentElement.id);
+  let parentId = e.target.parentElement.id
+  
+
+  let calendarInput = $(`#${parentId} textarea`).val().trim();
+  console.log(calendarInput);
+})
 
 
 // This function is called within the setColors function and the return value is saved to the hourNow variable.
