@@ -1,3 +1,8 @@
+/* This value was added as a variable to easily update all time blocks for consistency.  I did not like the default color of white being applied to all text areas.  The black text set on the textarea element type in the stylesheet was being overwritten by the class text color.  I feel black text offers a better experience for the end user. */
+:root {
+  --timeBlock-color: black;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
@@ -32,17 +37,17 @@ textarea {
 
 .past {
   background-color: #d3d3d3;
-  color: white;
+  color: var(--timeBlock-color);
 }
 
 .present {
   background-color: #ff6961;
-  color: white;
+  color: var(--timeBlock-color);
 }
 
 .future {
   background-color: #77dd77;
-  color: white;
+  color: var(--timeBlock-color);
 }
 
 .saveBtn {
