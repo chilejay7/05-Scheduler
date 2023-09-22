@@ -47,12 +47,18 @@ buttons.on('click', function(e) {
   // console.log('clicked', e.target);
   // console.log(e.target.parentElement.children[1].innerText);
   console.log(e.target.parentElement.id);
-  let parentId = e.target.parentElement.id
+  const parentId = e.target.parentElement.id
   
 
   let calendarInput = $(`#${parentId} textarea`).val().trim();
   console.log(calendarInput);
+
+  storeData(parentId, calendarInput);
 })
+
+const storeData = (id, input) => {
+  localStorage.setItem(id, input)
+}
 
 
 // This function is called within the setColors function and the return value is saved to the hourNow variable.
@@ -106,7 +112,7 @@ setColors = () => {
     }
     else {
       
-      // This staement was needed during the noon hour to fix a bug preventing afternoon hours from being evaluated as future due to the !=='pm'
+      // This staement was needed during the noon hour to fix a bug preventing afternoon hours from being evaluated as future due to the !=='pm'.  It was placed first to make sure it evaluates as true at noon.
       if (timeBlocks[i].className.includes('afternoon') && hourNow < 18 && hourNow === 12) {
         timeBlocks[i].nextSibling.nextElementSibling.className += ' future'
       } 
